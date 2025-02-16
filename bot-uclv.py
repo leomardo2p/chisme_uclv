@@ -17,14 +17,14 @@ print("Iniciando")
 lista_1=[]
 
 #lista de administradores
-adm=[968663996,847369429,1193174186]
+adm=[968663996,847369429,1193174186,859199743]
 
 #lista de usuarios:
 usuarios=[]
 
-#fichero=open("usuarios.dat","wb")
-#pickle.dump(usuarios,fichero)
-#fichero.close()
+fichero=open("usuarios.dat","wb")
+pickle.dump(usuarios,fichero)
+fichero.close()
 
 
 #grupo de administradores
@@ -162,6 +162,7 @@ async def handle_new_message(event):
     chanel=await client.get_entity(PeerChannel(canal))
     source_adm=await client.get_entity(PeerChannel(grupo_adm))
     #print(sender.id)
+    #print(adm.index(sender.id) != -1)
     #print(chat)
     lista= await buscador(mesage)
     sub_1= await estasub(sender.id)
@@ -426,12 +427,14 @@ async def handle_new_message(event):
             text=original_message.message
             index=mesage.find(" ")
             mensage="El mensaje: '" + text + "' no ha sido enviado porque: " + mesage[index+1:]
+            menss=text+"\n\nMensaje Denegado"
             for user in lista_1:
                 if(user["mess"]==text):
                     id=user["id"]
                     await client.send_message(id,mensage)
                     await event.reply("Mensaje enviado")
                     lista_1.remove(user)
+                    await client.edit_message(original_message,menss)
                 
         elif(mesage == "/ban" and event.message.reply_to and adm.index(sender.id) != -1):
             reply_to_msg_id = event.message.reply_to.reply_to_msg_id
