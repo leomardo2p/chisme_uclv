@@ -22,9 +22,9 @@ adm=[968663996,847369429,1193174186,859199743]
 #lista de usuarios:
 usuarios=[]
 
-fichero=open("usuarios.dat","wb")
-pickle.dump(usuarios,fichero)
-fichero.close()
+#fichero=open("usuarios.dat","wb")
+#pickle.dump(usuarios,fichero)
+#fichero.close()
 
 
 #grupo de administradores
